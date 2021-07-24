@@ -12,4 +12,14 @@ router.post("/", async (req, res) => {
   }
 });
 
+//get songs and  count of songs of an album
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const count = await Song.find({ album_id: id }).countDocuments();
+  const songs = await Song.find({ album_id: id });
+
+  res.status(200).json({ numOfSongs: count, songs });
+});
+
 module.exports = router;

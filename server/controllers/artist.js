@@ -25,4 +25,11 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// get by id
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  const artist = await Artist.findById(id);
+  res.status(200).json(artist);
+});
+
 module.exports = router;
