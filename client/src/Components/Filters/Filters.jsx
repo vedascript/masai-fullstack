@@ -31,13 +31,14 @@ const Sort = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "90%",
+    width: "30%",
     // zIndex: 5,
     display: "flex",
     flexWrap: "wrap",
     overflowX: "hidden",
     gap: "15px",
-    margin: "auto 90px",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 
   main: {

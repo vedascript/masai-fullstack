@@ -77,3 +77,11 @@ router.get("/:name", async (req, res) => {
   const album = await Album.find({ name });
   res.status(200).json(album);
 });
+
+//get album by artist id
+router.get("/artist/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const albums = await Album.find({ artist_id: id });
+  res.status(200).json(albums);
+});

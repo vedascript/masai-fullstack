@@ -102,7 +102,10 @@ export const Navbar = () => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Link style={{ color: "inherit", textDecoration: "none" }}>
+            <Link
+              to="/artist/login"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
               <Typography variant="h6">For Artists</Typography>
             </Link>
           </div>

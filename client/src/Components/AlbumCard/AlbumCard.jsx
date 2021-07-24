@@ -17,9 +17,9 @@ export const AlbumCard = ({ album }) => {
 
   return (
     <div>
-      <h3>{album.name}</h3>
-      <h4>{artist}</h4>
-      <h5>{numOfSongs}</h5>
+      <h3>Album: {album.name}</h3>
+      <h4>Artist: {artist}</h4>
+      <h5>Songs: {numOfSongs}</h5>
     </div>
   );
 };
