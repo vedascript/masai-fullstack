@@ -23,13 +23,13 @@ export const Home = () => {
   return (
     <div>
       <Navbar />
-      <Filters />
+      <Filters setAlbums={setAlbums} />
 
       {albums.length !== 0 && (
         <>
           {albums.map((el) => (
             <Link
-              key={el}
+              key={el._id}
               to={`/songs/${el._id}`}
               style={{ color: "inherit", textDecoration: "none" }}
             >

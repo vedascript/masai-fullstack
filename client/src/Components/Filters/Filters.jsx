@@ -5,15 +5,27 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { AccordionDetails, Checkbox } from "@material-ui/core";
+import axios from "axios";
 
-const genre = [
+const Genres = [
   {
     idx: 1,
-    name: "Hip Hop",
+    name: "rap",
   },
   {
     idx: 2,
-    name: "Rock",
+    name: "rock",
+  },
+];
+
+const Sort = [
+  {
+    value: "asc",
+    name: "older to newest",
+  },
+  {
+    value: "desc",
+    name: "newer to oldest",
   },
 ];
 
@@ -44,11 +56,48 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Filters = () => {
+export const Filters = ({ setAlbums }) => {
   const classes = useStyles();
+  const [genre, setGenre] = React.useState("");
+  const [order, setOrder] = React.useState("");
 
-  const [value, setValue] = React.useState("");
-  console.log(value);
+  const handleChangeGenre = (e) => {
+    if (e.target.checked) {
+      setGenre(e.target.value);
+
+      axios
+        .get("http://localhost:5000/album/genre", {
+          params: {
+            genre,
+          },
+        })
+        .then((res) => setAlbums(res.data));
+    } else {
+      axios.get("http://localhost:5000/album").then((res) => {
+        setAlbums(res.data.albums);
+      });
+    }
+  };
+
+  const handleChangeSort = (e) => {
+    setOrder(e.target.value);
+    if (e.target.checked) {
+      if (order === "asc") {
+        axios
+          .get("http://localhost:5000/album/asc")
+          .then((res) => setAlbums(res.data));
+      } else if (order === "desc") {
+        axios
+          .get("http://localhost:5000/album/desc")
+          .then((res) => setAlbums(res.data));
+      }
+    } else {
+      axios.get("http://localhost:5000/album").then((res) => {
+        setAlbums(res.data.albums);
+      });
+    }
+  };
+
   return (
     <div className={classes.root}>
       <div>
@@ -61,13 +110,37 @@ export const Filters = () => {
             <Typography className={classes.heading}>Genre</Typography>
           </AccordionSummary>
           <AccordionDetails className={classes.options}>
-            {genre.map((el) => (
-              <div>
+            {Genres.map((el) => (
+              <div key={el.name}>
                 <Checkbox
-                  // defaultChecked
-                  // checked={checked.indexOf(el.name) !== -1}
                   value={el.name}
-                  onChange={(e) => setValue(e.target.value)}
+                  onChange={(e) => handleChangeGenre(e)}
+                  inputProps={{ "aria-label": "uncontrolled-checkbox" }}
+                />
+                <span>{el.name} </span>
+              </div>
+            ))}
+          </AccordionDetails>
+        </Accordion>
+      </div>
+
+      {/*Sort Year  */}
+
+      <div>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography className={classes.heading}>Sort By Year</Typography>
+          </AccordionSummary>
+          <AccordionDetails className={classes.options}>
+            {Sort.map((el) => (
+              <div key={el.value}>
+                <Checkbox
+                  value={el.value}
+                  onChange={(e) => handleChangeSort(e)}
                   inputProps={{ "aria-label": "uncontrolled-checkbox" }}
                 />
                 <span>{el.name} </span>

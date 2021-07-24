@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
+import { IconButton } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +62,11 @@ const useStyles = makeStyles((theme) => ({
 
 export const Navbar = () => {
   const classes = useStyles();
+  const [title, setTitle] = React.useState("");
+
+  const handleSearch = () => {
+    console.log("hey");
+  };
 
   return (
     <div className={classes.grow}>
@@ -70,9 +76,14 @@ export const Navbar = () => {
             Mp3 Library
           </Typography>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
+            <IconButton
+              style={{ color: "white", marginRight: "-10px" }}
+              onClick={handleSearch}
+            >
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+            </IconButton>
             <InputBase
               placeholder="Search Album…"
               classes={{
@@ -80,6 +91,7 @@ export const Navbar = () => {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div className={classes.grow} />

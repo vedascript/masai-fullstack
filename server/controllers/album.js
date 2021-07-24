@@ -50,7 +50,6 @@ router.get("/search", async (req, res) => {
 //filter by genre
 router.get("/genre", async (req, res) => {
   const genre = req.query.genre;
-
   try {
     const albums = await Album.find({ genre });
 
@@ -58,4 +57,15 @@ router.get("/genre", async (req, res) => {
   } catch (err) {
     res.status(500).json({ err: "Bad req" });
   }
+});
+
+//sort by year
+router.get("/asc", async (req, res) => {
+  const albums = await Album.find().sort({ year: 1 }).exec();
+  res.status(200).json(albums);
+});
+
+router.get("/desc", async (req, res) => {
+  const albums = await Album.find().sort({ year: -1 }).exec();
+  res.status(200).json(albums);
 });

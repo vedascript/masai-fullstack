@@ -19,14 +19,11 @@ export const SongsList = () => {
       {songs.length !== 0 && (
         <>
           {songs.map((el, ind) => (
-            <>
-              <div>
-                <p>
-                  <span>{ind + 1}</span> <strong>{el.name}</strong>{" "}
-                  {el.duration}{" "}
-                </p>
-              </div>
-            </>
+            <div key={el.name}>
+              <p>
+                <span>{ind + 1}</span> <strong>{el.name}</strong> {el.duration}{" "}
+              </p>
+            </div>
           ))}
         </>
       )}
