@@ -1,6 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const artistController = require("./controllers/artist");
+const albumController = require("./controllers/album");
+const songController = require("./controllers/song");
 
 require("dotenv").config();
 
@@ -11,6 +14,10 @@ const uri = process.env.ATLAS_URI;
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/artist", artistController);
+app.use("/album", albumController);
+app.use("/song", songController);
 
 const options = {
   useNewUrlParser: true,
