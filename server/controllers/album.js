@@ -69,3 +69,11 @@ router.get("/desc", async (req, res) => {
   const albums = await Album.find().sort({ year: -1 }).exec();
   res.status(200).json(albums);
 });
+
+//get album by names
+router.get("/:name", async (req, res) => {
+  const name = req.params.name;
+
+  const album = await Album.find({ name });
+  res.status(200).json(album);
+});

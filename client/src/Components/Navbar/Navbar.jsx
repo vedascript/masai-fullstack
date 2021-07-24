@@ -6,7 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { IconButton } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -63,10 +64,15 @@ const useStyles = makeStyles((theme) => ({
 export const Navbar = () => {
   const classes = useStyles();
   const [title, setTitle] = React.useState("");
+  const [id, setId] = React.useState("");
 
   const handleSearch = () => {
-    console.log("hey");
+    axios
+      .get("http://localhost:5000/album/" + title)
+      .then((res) => setId(res.data[0]._id));
   };
+
+  if (id !== "") return <Redirect to={`/songs/${id}`} push />;
 
   return (
     <div className={classes.grow}>
